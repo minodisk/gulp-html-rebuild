@@ -1,2 +1,2 @@
-gulp-htmlparser2
+gulp-html-rebuilder
 ================
