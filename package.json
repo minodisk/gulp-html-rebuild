@@ -20,5 +20,16 @@
     "gulp-util": "^3.0.0",
     "htmlparser2": "git://github.com/minodisk/htmlparser2.git#stack-storage",
     "through2": "^0.5.1"
+  },
+  "devDependencies": {
+    "assert": "^1.1.1",
+    "event-stream": "^3.1.7",
+    "expect": "^0.1.1",
+    "gulp": "^3.8.6",
+    "gulp-coffee": "^2.1.1",
+    "gulp-mocha": "^0.5.2",
+    "gulp-replace": "^0.4.0",
+    "gulp-util": "^3.0.0",
+    "through2": "^0.5.1"
   }
 }
