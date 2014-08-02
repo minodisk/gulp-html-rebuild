@@ -1,9 +1,10 @@
 {
   "name": "gulp-rebuild-html",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Rebuild html with htmlparser2.",
   "keywords": [
-    "gulpplugin"
+    "gulpplugin",
+    "htmlparser"
   ],
   "main": "lib/gulp-rebuild-html.js",
   "scripts": {
