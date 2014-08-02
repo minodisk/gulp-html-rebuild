@@ -2,7 +2,7 @@ through = require 'through2'
 { PluginError, replaceExtension } = require 'gulp-util'
 { Parser } = require 'htmlparser2'
 
-PLUGIN_NAME = 'gulp-html-rebuilder'
+PLUGIN_NAME = 'gulp-rebuild-html'
 
 voidElements =
 	__proto__: null,

@@ -1,2 +1,2 @@
-gulp-html-rebuilder
+gulp-rebuild-html
 ================

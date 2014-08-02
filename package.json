@@ -1,21 +1,21 @@
 {
-  "name": "gulp-html-rebuilder",
+  "name": "gulp-rebuild-html",
   "version": "0.0.0",
   "description": "",
-  "main": "lib/gulp-html-rebuilder.js",
+  "main": "lib/gulp-rebuild-html.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/minodisk/gulp-html-rebuilder.git"
+    "url": "https://github.com/minodisk/gulp-rebuild-html.git"
   },
   "author": "",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/minodisk/gulp-html-rebuilder/issues"
+    "url": "https://github.com/minodisk/gulp-rebuild-html/issues"
   },
-  "homepage": "https://github.com/minodisk/gulp-html-rebuilder",
+  "homepage": "https://github.com/minodisk/gulp-rebuild-html",
   "dependencies": {
     "gulp-util": "^3.0.0",
     "htmlparser2": "git://github.com/minodisk/htmlparser2.git#stack-storage",
