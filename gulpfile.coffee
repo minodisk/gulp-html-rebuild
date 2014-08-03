@@ -2,11 +2,11 @@ gulp = require 'gulp'
 coffee = require 'gulp-coffee'
 replace = require 'gulp-replace'
 mocha = require 'gulp-mocha'
+watch = require 'gulp-watch'
 
 gulp.task 'watch', ->
   gulp.watch 'src/**/*.coffee', [
     'coffee'
-    'mocha'
   ]
   gulp.watch 'test/**/*.coffee', [
     'mocha'

@@ -5,34 +5,34 @@ through = require 'through2'
 PLUGIN_NAME = 'gulp-rebuild-html'
 
 voidElements =
-	__proto__: null,
-	area: true,
-	base: true,
-	basefont: true,
-	br: true,
-	col: true,
-	command: true,
-	embed: true,
-	frame: true,
-	hr: true,
-	img: true,
-	input: true,
-	isindex: true,
-	keygen: true,
-	link: true,
-	meta: true,
-	param: true,
-	source: true,
-	track: true,
-	wbr: true,
+  __proto__: null,
+  area: true,
+  base: true,
+  basefont: true,
+  br: true,
+  col: true,
+  command: true,
+  embed: true,
+  frame: true,
+  hr: true,
+  img: true,
+  input: true,
+  isindex: true,
+  keygen: true,
+  link: true,
+  meta: true,
+  param: true,
+  source: true,
+  track: true,
+  wbr: true,
 
-	# common self closing svg elements
-	path: true,
-	circle: true,
-	ellipse: true,
-	line: true,
-	rect: true,
-	use: true
+  # common self closing svg elements
+  path: true,
+  circle: true,
+  ellipse: true,
+  line: true,
+  rect: true,
+  use: true
 
 createAttrStr = (attrs) ->
   return '' if Object.keys(attrs).length is 0
@@ -53,28 +53,33 @@ module.exports = (opts = {}) ->
 
   through.obj (file, enc, callback) ->
     return callback() if file.isNull()
-    throw new PluginError PLUGIN_NAME, 'Not supports Stream' if file.isStream()
-    throw new PluginError PLUGIN_NAME, 'Supports Buffer only' unless file.isBuffer()
 
-    contents = ''
-    [ node ] = []
-    parser = new Parser
-      onprocessinginstruction: (name, value) ->
-        contents += opts.onprocessinginstruction name, value
-      onopentag: (name, attrs) ->
-        contents += opts.onopentag name, attrs, createAttrStr
-      ontext: (text) ->
-        contents += opts.ontext text
-      onclosetag: (name, attrs) ->
-        return if !parser._options.xmlMode and name of voidElements
-        contents += opts.onclosetag name, attrs, createAttrStr
-      oncomment: (value) ->
-        contents += opts.oncomment value
+    console.log '=====12'
 
-    parser.write file.contents.toString 'utf8'
-    parser.end()
+    if file.isStream()
+      console.log 'stream'
+      throw new PluginError PLUGIN_NAME, 'Not supports Stream'
 
-    file.contents = new Buffer contents
-    @push file
+    if file.isBuffer()
+      contents = ''
+      [ node ] = []
+      parser = new Parser
+        onprocessinginstruction: (name, value) ->
+          contents += opts.onprocessinginstruction name, value
+        onopentag: (name, attrs) ->
+          contents += opts.onopentag name, attrs, createAttrStr
+        ontext: (text) ->
+          contents += opts.ontext text
+        onclosetag: (name, attrs) ->
+          return if !parser._options.xmlMode and name of voidElements
+          contents += opts.onclosetag name, attrs, createAttrStr
+        oncomment: (value) ->
+          contents += opts.oncomment value
 
-    callback()
+      parser.write file.contents.toString 'utf8'
+      parser.end()
+
+      file.contents = new Buffer contents
+      @push file
+
+      callback()
