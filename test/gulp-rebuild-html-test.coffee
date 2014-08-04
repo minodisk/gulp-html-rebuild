@@ -81,6 +81,7 @@ describe 'gulp-rebuild-html', ->
   describe 'in stream mode', ->
 
     createRunner = (rebuildOpts, sourceChunks, expected) ->
+      sourceChunks = clone sourceChunks
       (done) ->
         contentStream = new PassThrough
 
@@ -107,7 +108,7 @@ describe 'gulp-rebuild-html', ->
                       attrs.class?
         attrs.class = ("module-#{cls}" for cls in attrs.class.split /\s+/g).join ' '
         "<#{name}#{createAttrStr attrs}>"
-    , clone(htmlChunks)
+    , htmlChunks
     , """
     <!DOCTYPE html>
     <html>
@@ -127,7 +128,7 @@ describe 'gulp-rebuild-html', ->
                       attrs.class?
         classStr = (".#{cls}" for cls in attrs.class.split /s+/g).join ''
         "<!-- /#{classStr} --></#{name}>"
-    , clone(htmlChunks)
+    , htmlChunks
     , """
     <!DOCTYPE html>
     <html>
