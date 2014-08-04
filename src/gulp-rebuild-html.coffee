@@ -53,9 +53,6 @@ module.exports = (opts = {}) ->
 
   through.obj (file, enc, callback) ->
     return callback() if file.isNull()
-
-    console.log '=====12'
-
     if file.isStream()
       console.log 'stream'
       throw new PluginError PLUGIN_NAME, 'Not supports Stream'

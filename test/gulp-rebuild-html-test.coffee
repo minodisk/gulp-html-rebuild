@@ -1,8 +1,8 @@
+expect = require 'expect'
 rebuild = require '../lib/gulp-rebuild-html'
 { File } = require 'gulp-util'
-es = require 'event-stream'
 { PassThrough } = require 'stream'
-expect = require 'expect'
+# es = require 'event-stream'
 
 describe 'gulp-rebuild-html', ->
 
