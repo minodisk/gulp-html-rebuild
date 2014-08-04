@@ -9,6 +9,7 @@
   "main": "lib/gulp-rebuild-html.js",
   "scripts": {
     "test": "mocha --compilers coffee:coffee-script/register",
+    "istanbul": "coffee -c test && istanbul cover _mocha --report lcovonly -- -R spec && rm -rf ./coverage ./test/*.js",
     "coveralls": "coffee -c test && istanbul cover _mocha --report lcovonly -- -R spec && cat ./coverage/lcov.info | coveralls && rm -rf ./coverage ./test/*.js"
   },
   "repository": {
