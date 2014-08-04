@@ -8,7 +8,7 @@
   ],
   "main": "lib/gulp-rebuild-html.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha --compilers coffee:coffee-script/register"
   },
   "repository": {
     "type": "git",
