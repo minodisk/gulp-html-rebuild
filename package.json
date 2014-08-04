@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/minodisk/gulp-rebuild-html",
   "dependencies": {
+    "cloneextend": "0.0.3",
     "gulp-util": "^3.0.0",
     "htmlparser2": "git://github.com/minodisk/htmlparser2.git#stack-storage",
     "through2": "^0.5.1"

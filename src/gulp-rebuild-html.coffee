@@ -2,6 +2,7 @@ through = require 'through2'
 { PluginError, replaceExtension } = require 'gulp-util'
 { Parser } = require 'htmlparser2'
 { PassThrough } = require 'stream'
+{ cloneextend } = require 'cloneextend'
 
 PLUGIN_NAME = 'gulp-rebuild-html'
 
@@ -44,13 +45,16 @@ createAttrStr = (attrs) ->
   list.unshift ''
   list.join ' '
 
+defOpts =
+  onprocessinginstruction: (name, value) -> "<#{value}>"
+  onopentag              : (name, attrs, createAttrStr) -> "<#{name}#{createAttrStr attrs}>"
+  ontext                 : (text) -> text
+  onwhitespace           : (value) -> value
+  onclosetag             : (name, attrs, createAttrStr) -> "</#{name}>"
+  oncomment              : (value) -> "<!--#{value}-->"
+
 module.exports = (opts = {}) ->
-  opts.onprocessinginstruction ?= (name, value) -> "<#{value}>"
-  opts.onopentag ?= (name, attrs, createAttrStr) -> "<#{name}#{createAttrStr attrs}>"
-  opts.ontext ?= (text) -> text
-  opts.onwhitespace ?= (value) -> value
-  opts.onclosetag ?= (name, attrs, createAttrStr) -> "</#{name}>"
-  opts.oncomment ?= (value) -> "<!--#{value}-->"
+  opts = cloneextend defOpts, opts
 
   through.obj (file, enc, callback) ->
     return callback() if file.isNull()
@@ -59,16 +63,16 @@ module.exports = (opts = {}) ->
       contents = ''
       parser = new Parser
         onprocessinginstruction: (name, value) ->
-          contents += opts.onprocessinginstruction name, value
+          contents += opts.onprocessinginstruction(name, value) ? defOpts.onprocessinginstruction(name, value)
         onopentag: (name, attrs) ->
-          contents += opts.onopentag name, attrs, createAttrStr
+          contents += opts.onopentag(name, attrs, createAttrStr) ? defOpts.onopentag(name, attrs, createAttrStr)
         ontext: (text) ->
-          contents += opts.ontext text
+          contents += opts.ontext(text) ? defOpts.ontext(text)
         onclosetag: (name, attrs) ->
           return if !parser._options.xmlMode and name of voidElements
-          contents += opts.onclosetag name, attrs, createAttrStr
+          contents += opts.onclosetag(name, attrs, createAttrStr) ? defOpts.onclosetag(name, attrs, createAttrStr)
         oncomment: (value) ->
-          contents += opts.oncomment value
+          contents += opts.oncomment(value) ? defOpts.oncomment(value)
       parser.write file.contents.toString 'utf8'
       parser.end()
       file.contents = new Buffer contents
@@ -77,16 +81,16 @@ module.exports = (opts = {}) ->
       stream = new PassThrough()
       parser = new Parser
         onprocessinginstruction: (name, value) ->
-          stream.write opts.onprocessinginstruction name, value
+          stream.write opts.onprocessinginstruction(name, value) ? defOpts.onprocessinginstruction(name, value)
         onopentag: (name, attrs) ->
-          stream.write opts.onopentag name, attrs, createAttrStr
+          stream.write opts.onopentag(name, attrs, createAttrStr) ? defOpts.onopentag(name, attrs, createAttrStr)
         ontext: (text) ->
-          stream.write opts.ontext text
+          stream.write opts.ontext(text) ? defOpts.ontext(text)
         onclosetag: (name, attrs) ->
           return if !parser._options.xmlMode and name of voidElements
-          stream.write opts.onclosetag name, attrs, createAttrStr
+          stream.write opts.onclosetag(name, attrs, createAttrStr) ? defOpts.onclosetag(name, attrs, createAttrStr)
         oncomment: (value) ->
-          stream.write opts.oncomment value
+          stream.write opts.oncomment(value) ? defOpts.oncomment(value)
         onend: ->
           stream.end()
       file.contents.pipe parser

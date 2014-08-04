@@ -21,8 +21,9 @@ describe 'gulp-rebuild-html', ->
 
     it "should rewrite the value of attributes", test
       onopentag: (name, attrs, createAttrStr) ->
-        if attrs.class?
-          attrs.class = ("module-#{cls}" for cls in  attrs.class.split /\s+/g).join ' '
+        return unless name is 'div' and
+                      attrs.class?
+        attrs.class = ("module-#{cls}" for cls in  attrs.class.split /\s+/g).join ' '
         "<#{name}#{createAttrStr attrs}>"
     , """
     <div class="foo">
@@ -32,7 +33,7 @@ describe 'gulp-rebuild-html', ->
     """
     , """
     <div class="module-foo">
-      <h1 class="module-bar module-buz">abc<span>def</span>ghi</h1>
+      <h1 class="bar buz">abc<span>def</span>ghi</h1>
       <p>jkl</p>
     </div>
     """
@@ -62,8 +63,9 @@ describe 'gulp-rebuild-html', ->
 
     it "should rewrite the value of attributes", test
         onopentag: (name, attrs, createAttrStr) ->
-          if attrs.class?
-            attrs.class = ("module-#{cls}" for cls in  attrs.class.split /\s+/g).join ' '
+          return unless name is 'div' and
+                        attrs.class?
+          attrs.class = ("module-#{cls}" for cls in  attrs.class.split /\s+/g).join ' '
           "<#{name}#{createAttrStr attrs}>"
       , [
         '<div class="foo">\n'
@@ -73,7 +75,7 @@ describe 'gulp-rebuild-html', ->
       ]
       , """
       <div class="module-foo">
-        <h1 class="module-bar module-baz">abc<span>def</span>ghi</h1>
+        <h1 class="bar baz">abc<span>def</span>ghi</h1>
         <p>jkl</p>
       </div>
       """
