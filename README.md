@@ -1,6 +1,6 @@
 # [gulp](http://gulpjs.com)-rebuild-html [![Build Status](https://travis-ci.org/minodisk/gulp-rebuild-html.svg?branch=master)](https://travis-ci.org/minodisk/gulp-rebuild-html)
 
-> Run [minodisk/htmlparser2](https://github.com/minodisk/htmlparser2/) and modify
+> Run [minodisk/htmlparser2#stack-storage](https://github.com/minodisk/htmlparser2/tree/stack-storage) and rebuild html.
 
 *Automate rebuilding html to observe coding conventions, and so on.*
 
