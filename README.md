@@ -30,3 +30,9 @@ gulp.task('default', function () {
 ### rebuild(options)
 
 #### options.ontagstart
+
+
+[travis-url]: http://travis-ci.org/minodisk/gulp-rebuild-html
+[travis-image]: https://secure.travis-ci.org/minodisk/gulp-rebuild-html.svg?branch=master
+[npm-url]: https://npmjs.org/package/gulp-rebuild-html
+[npm-image]: https://badge.fury.io/js/gulp-rebuild-html.svg
