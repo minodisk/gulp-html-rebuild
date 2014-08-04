@@ -8,7 +8,8 @@
   ],
   "main": "lib/gulp-rebuild-html.js",
   "scripts": {
-    "test": "mocha --compilers coffee:coffee-script/register"
+    "test": "mocha --compilers coffee:coffee-script/register",
+    "coveralls": "istanbul cover _mocha --report lcovonly -- -R spec && cat ./coverage/lcov.info | coveralls && rm -rf ./coverage"
   },
   "repository": {
     "type": "git",
@@ -28,6 +29,7 @@
   },
   "devDependencies": {
     "coffee-script": "^1.7.1",
+    "coveralls": "^2.11.1",
     "event-stream": "^3.1.7",
     "expect": "^0.1.1",
     "gulp": "^3.8.6",
@@ -36,6 +38,7 @@
     "gulp-replace": "^0.4.0",
     "gulp-watch": "^0.6.9",
     "mocha": "^1.21.3",
+    "mocha-lcov-reporter": "0.0.1",
     "run-sequence": "^0.3.6"
   }
 }
