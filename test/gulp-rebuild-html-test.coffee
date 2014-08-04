@@ -19,20 +19,20 @@ describe 'gulp-rebuild-html', ->
         rebuildStream.write new File contents: new Buffer source
         rebuildStream.end()
 
-    it 'should parse and rebuild html', test
+    it "should rewrite the value of attributes", test
       onopentag: (name, attrs, createAttrStr) ->
         if attrs.class?
           attrs.class = ("module-#{cls}" for cls in  attrs.class.split /\s+/g).join ' '
         "<#{name}#{createAttrStr attrs}>"
     , """
-    <div>
-      <p class="foo">abc<span>def</span>ghi</p>
+    <div class="foo">
+      <h1 class="bar buz">abc<span>def</span>ghi</h1>
       <p>jkl</p>
     </div>
     """
     , """
-    <div>
-      <p class="module-foo">abc<span>def</span>ghi</p>
+    <div class="module-foo">
+      <h1 class="module-bar module-buz">abc<span>def</span>ghi</h1>
       <p>jkl</p>
     </div>
     """
@@ -60,20 +60,20 @@ describe 'gulp-rebuild-html', ->
             contentStream.end()
         writeChunk()
 
-    it 'should parse and rebuild html', test
+    it "should rewrite the value of attributes", test
         onopentag: (name, attrs, createAttrStr) ->
           if attrs.class?
             attrs.class = ("module-#{cls}" for cls in  attrs.class.split /\s+/g).join ' '
           "<#{name}#{createAttrStr attrs}>"
       , [
-        '<div>\n'
-        '  <p class="foo bar">abc<span>def</span>ghi</p>\n'
+        '<div class="foo">\n'
+        '  <h1 class="bar baz">abc<span>def</span>ghi</h1>\n'
         '  <p>jkl</p>\n'
         '</div>'
       ]
       , """
-      <div>
-        <p class="module-foo module-bar">abc<span>def</span>ghi</p>
+      <div class="module-foo">
+        <h1 class="module-bar module-baz">abc<span>def</span>ghi</h1>
         <p>jkl</p>
       </div>
       """
