@@ -51,10 +51,6 @@ Default: `function (name, attrs, createAttrStr) { return "<" + name + createAttr
 Type: `function`
 Default: `function (name, value) { return text; }`
 
-##### onwhitespace
-Type: `function`
-Default: `function (name, value) { return value; }`
-
 ##### onclosetag
 Type: `function`
 Default: `function (name, attrs, createAttrStr) { return "</" + name + ">"; }`

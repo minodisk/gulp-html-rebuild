@@ -13,7 +13,7 @@ describe 'gulp-rebuild-html', ->
   <head></head>
   <body>
     <div class="foo">
-      <h1 class="bar baz">abc<span>span</span>ghi</h1>
+      <h1 class="bar baz">abc<span>def</span>ghi</h1>
       <p>jkl</p>
     </div>
   </body>
@@ -38,6 +38,23 @@ describe 'gulp-rebuild-html', ->
         rebuildStream.write new File contents: new Buffer source
         rebuildStream.end()
 
+    it "should replace doctype", createRunner
+      onprocessinginstruction: (name, value) ->
+        '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">'
+    , html
+    , """
+    <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+    <html>
+    <head></head>
+    <body>
+      <div class="foo">
+        <h1 class="bar baz">abc<span>def</span>ghi</h1>
+        <p>jkl</p>
+      </div>
+    </body>
+    </html>
+    """
+
     it "should rewrite the value of attributes", createRunner
       onopentag: (name, attrs, createAttrStr) ->
         return unless name is 'div' and
@@ -51,7 +68,7 @@ describe 'gulp-rebuild-html', ->
     <head></head>
     <body>
       <div class="module-foo">
-        <h1 class="bar baz">abc<span>span</span>ghi</h1>
+        <h1 class="bar baz">abc<span>def</span>ghi</h1>
         <p>jkl</p>
       </div>
     </body>
@@ -71,9 +88,26 @@ describe 'gulp-rebuild-html', ->
     <head></head>
     <body>
       <div class="foo">
-        <h1 class="bar baz">abc<span>span</span>ghi</h1>
+        <h1 class="bar baz">abc<span>def</span>ghi</h1>
         <p>jkl</p>
       <!-- /.foo --></div>
+    </body>
+    </html>
+    """
+
+    it "should replace text", createRunner
+      ontext: (value) ->
+        value.toUpperCase()
+    , html
+    , """
+    <!DOCTYPE html>
+    <html>
+    <head></head>
+    <body>
+      <div class="foo">
+        <h1 class="bar baz">ABC<span>DEF</span>GHI</h1>
+        <p>JKL</p>
+      </div>
     </body>
     </html>
     """
@@ -102,6 +136,23 @@ describe 'gulp-rebuild-html', ->
             contentStream.end()
         writeChunk()
 
+    it "should replace doctype", createRunner
+      onprocessinginstruction: (name, value) ->
+        '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">'
+    , htmlChunks
+    , """
+    <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+    <html>
+    <head></head>
+    <body>
+      <div class="foo">
+        <h1 class="bar baz">abc<span>def</span>ghi</h1>
+        <p>jkl</p>
+      </div>
+    </body>
+    </html>
+    """
+
     it "should rewrite the value of attributes", createRunner
       onopentag: (name, attrs, createAttrStr) ->
         return unless name is 'div' and
@@ -115,7 +166,7 @@ describe 'gulp-rebuild-html', ->
     <head></head>
     <body>
       <div class="module-foo">
-        <h1 class="bar baz">abc<span>span</span>ghi</h1>
+        <h1 class="bar baz">abc<span>def</span>ghi</h1>
         <p>jkl</p>
       </div>
     </body>
@@ -135,9 +186,26 @@ describe 'gulp-rebuild-html', ->
     <head></head>
     <body>
       <div class="foo">
-        <h1 class="bar baz">abc<span>span</span>ghi</h1>
+        <h1 class="bar baz">abc<span>def</span>ghi</h1>
         <p>jkl</p>
       <!-- /.foo --></div>
+    </body>
+    </html>
+    """
+
+    it "should replace text", createRunner
+      ontext: (value) ->
+        value.toUpperCase()
+    , htmlChunks
+    , """
+    <!DOCTYPE html>
+    <html>
+    <head></head>
+    <body>
+      <div class="foo">
+        <h1 class="bar baz">ABC<span>DEF</span>GHI</h1>
+        <p>JKL</p>
+      </div>
     </body>
     </html>
     """

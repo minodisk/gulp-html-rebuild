@@ -49,7 +49,6 @@ defOpts =
   onprocessinginstruction: (name, value) -> "<#{value}>"
   onopentag              : (name, attrs, createAttrStr) -> "<#{name}#{createAttrStr attrs}>"
   ontext                 : (text) -> text
-  onwhitespace           : (value) -> value
   onclosetag             : (name, attrs, createAttrStr) -> "</#{name}>"
   oncomment              : (value) -> "<!--#{value}-->"
 
