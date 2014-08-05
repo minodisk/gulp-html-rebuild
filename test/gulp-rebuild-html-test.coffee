@@ -54,6 +54,9 @@ describe 'gulp-rebuild-html', ->
         rebuildStream.write new File contents: new Buffer source
         rebuildStream.end()
 
+    it "should do nothing with null option", createRunner null, html, html
+    it "should do nothing without any option", createRunner {}, html, html
+
     it "should replace doctype", createRunner
       onprocessinginstruction: (name, value) ->
         '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">'
@@ -151,6 +154,9 @@ describe 'gulp-rebuild-html', ->
           else
             contentStream.end()
         writeChunk()
+
+    it "should do nothing with null option", createRunner null, htmlChunks, html
+    it "should do nothing without any option", createRunner {}, htmlChunks, html
 
     it "should replace doctype", createRunner
       onprocessinginstruction: (name, value) ->
