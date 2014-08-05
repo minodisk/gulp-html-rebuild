@@ -17,19 +17,51 @@ var gulp = require('gulp');
 var rebuild = require('gulp-rebuild-html');
 
 gulp.task('default', function () {
-	return gulp.src('index.html')
-		.pipe(rebuild({
-			ontagopen: function () {}
-		}));
+  return gulp.src('index.html')
+  .pipe(rebuild({
+    onopentag: function (name, attrs, createAttrStr) {
+      var classes = attrs.class.split(/\s+/);
+      var index;
+      if ((index = classes.indexOf('article')) === -1) {
+        return;
+      }
+      classes.splice(index, 1);
+      attrs.class = classes.join(' ');
+      return "<" + name + createAttrStr(attrs) + ">";
+    }
+  }));
 });
 ```
-
 
 ## API
 
 ### rebuild(options)
 
-#### options.ontagstart
+#### options
+
+##### onprocessinginstruction
+Type: `function`
+Default: `function (name, value) { return "<" + value + ">"; }`
+
+##### onopentag
+Type: `function`
+Default: `function (name, attrs, createAttrStr) { return "<" + name + createAttrStr(attrs) + ">"; }`
+
+##### ontext
+Type: `function`
+Default: `function (name, value) { return text; }`
+
+##### onwhitespace
+Type: `function`
+Default: `function (name, value) { return value; }`
+
+##### onclosetag
+Type: `function`
+Default: `function (name, attrs, createAttrStr) { return "</" + name + ">"; }`
+
+##### oncomment
+Type: `function`
+Default: `function (name, value) { return "<!--" + value + "-->"; }`
 
 
 [travis-url]: http://travis-ci.org/minodisk/gulp-rebuild-html
