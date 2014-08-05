@@ -56,7 +56,10 @@ module.exports = (opts = {}) ->
   opts = cloneextend defOpts, opts
 
   through.obj (file, enc, callback) ->
-    return callback() if file.isNull()
+    if file.isNull()
+      @push file
+      callback()
+      return
 
     if file.isBuffer()
       contents = ''

@@ -25,6 +25,22 @@ describe 'gulp-rebuild-html', ->
     htmlClone = htmlClone.substr 10
     chunk
 
+  describe 'null file', ->
+    it 'should pass through', (done) ->
+      stream = rebuild()
+      n = 0
+      stream.pipe es.through (file) ->
+        expect(file.path).toBe 'null.html'
+        expect(file.contents).toBe null
+        n++
+      , ->
+        expect(n).toBe 1
+        done()
+      stream.write new File
+        path: 'null.html'
+        contents: null
+      stream.end()
+
   describe 'in buffer mode', ->
 
     createRunner = (rebuildOpts, source, expected) ->
