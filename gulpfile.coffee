@@ -2,7 +2,6 @@ gulp = require 'gulp'
 coffee = require 'gulp-coffee'
 replace = require 'gulp-replace'
 mocha = require 'gulp-mocha'
-sequence = require 'run-sequence'
 
 files =
   src: 'src/**/*.coffee'
@@ -10,14 +9,11 @@ files =
 
 gulp.task 'watch', ->
   gulp.watch files.src, [
-    'coffee&mocha'
+    'coffee'
   ]
   gulp.watch files.test, [
     'mocha'
   ]
-
-gulp.task 'coffee&mocha', (callback) ->
-  sequence 'coffee', 'mocha', callback
 
 gulp.task 'coffee', ->
   gulp
@@ -25,6 +21,8 @@ gulp.task 'coffee', ->
   .pipe coffee bare: true
   .pipe replace /\n{2,}/g, '\n'
   .pipe gulp.dest 'lib'
+  .on 'end', ->
+    gulp.start 'mocha'
 
 gulp.task 'mocha', ->
   gulp
@@ -34,5 +32,5 @@ gulp.task 'mocha', ->
 
 gulp.task 'default', [
   'watch'
-  'coffee&mocha'
+  'coffee'
 ]
