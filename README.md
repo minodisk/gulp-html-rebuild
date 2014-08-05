@@ -40,24 +40,39 @@ gulp.task('default', function () {
 #### options
 
 ##### onprocessinginstruction
+
 Type: `function`
 Default: `function (name, value) { return "<" + value + ">"; }`
 
+Replace instruction with returned string.
+
 ##### onopentag
+
 Type: `function`
 Default: `function (name, attrs, createAttrStr) { return "<" + name + createAttrStr(attrs) + ">"; }`
 
+Replace open tag with returned string.
+
 ##### ontext
+
 Type: `function`
 Default: `function (name, value) { return text; }`
 
+Replace text with returned string.
+
 ##### onclosetag
+
 Type: `function`
 Default: `function (name, attrs, createAttrStr) { return "</" + name + ">"; }`
 
+Replace close tag with returned string.
+
 ##### oncomment
+
 Type: `function`
 Default: `function (name, value) { return "<!--" + value + "-->"; }`
+
+Replace comment with returned string.
 
 
 [travis-url]: http://travis-ci.org/minodisk/gulp-rebuild-html
