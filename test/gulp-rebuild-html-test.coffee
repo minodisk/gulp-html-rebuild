@@ -15,6 +15,7 @@ describe 'gulp-rebuild-html', ->
     <div class="foo">
       <h1 class="bar baz">abc<span>def</span>ghi</h1>
       <p>jkl</p>
+      <!-- mno -->
     </div>
   </body>
   </html>
@@ -69,6 +70,7 @@ describe 'gulp-rebuild-html', ->
       <div class="foo">
         <h1 class="bar baz">abc<span>def</span>ghi</h1>
         <p>jkl</p>
+        <!-- mno -->
       </div>
     </body>
     </html>
@@ -89,6 +91,7 @@ describe 'gulp-rebuild-html', ->
       <div class="module-foo">
         <h1 class="bar baz">abc<span>def</span>ghi</h1>
         <p>jkl</p>
+        <!-- mno -->
       </div>
     </body>
     </html>
@@ -109,6 +112,7 @@ describe 'gulp-rebuild-html', ->
       <div class="foo">
         <h1 class="bar baz">abc<span>def</span>ghi</h1>
         <p>jkl</p>
+        <!-- mno -->
       <!-- /.foo --></div>
     </body>
     </html>
@@ -126,6 +130,25 @@ describe 'gulp-rebuild-html', ->
       <div class="foo">
         <h1 class="bar baz">ABC<span>DEF</span>GHI</h1>
         <p>JKL</p>
+        <!-- mno -->
+      </div>
+    </body>
+    </html>
+    """
+
+    it "should replace comment", createRunner
+      oncomment: (value) ->
+        "<!--#{value.toUpperCase()}-->"
+    , html
+    , """
+    <!DOCTYPE html>
+    <html>
+    <head></head>
+    <body>
+      <div class="foo">
+        <h1 class="bar baz">abc<span>def</span>ghi</h1>
+        <p>jkl</p>
+        <!-- MNO -->
       </div>
     </body>
     </html>
@@ -170,6 +193,7 @@ describe 'gulp-rebuild-html', ->
       <div class="foo">
         <h1 class="bar baz">abc<span>def</span>ghi</h1>
         <p>jkl</p>
+        <!-- mno -->
       </div>
     </body>
     </html>
@@ -190,6 +214,7 @@ describe 'gulp-rebuild-html', ->
       <div class="module-foo">
         <h1 class="bar baz">abc<span>def</span>ghi</h1>
         <p>jkl</p>
+        <!-- mno -->
       </div>
     </body>
     </html>
@@ -210,6 +235,7 @@ describe 'gulp-rebuild-html', ->
       <div class="foo">
         <h1 class="bar baz">abc<span>def</span>ghi</h1>
         <p>jkl</p>
+        <!-- mno -->
       <!-- /.foo --></div>
     </body>
     </html>
@@ -227,6 +253,25 @@ describe 'gulp-rebuild-html', ->
       <div class="foo">
         <h1 class="bar baz">ABC<span>DEF</span>GHI</h1>
         <p>JKL</p>
+        <!-- mno -->
+      </div>
+    </body>
+    </html>
+    """
+
+    it "should replace comment", createRunner
+      oncomment: (value) ->
+        "<!--#{value.toUpperCase()}-->"
+    , htmlChunks
+    , """
+    <!DOCTYPE html>
+    <html>
+    <head></head>
+    <body>
+      <div class="foo">
+        <h1 class="bar baz">abc<span>def</span>ghi</h1>
+        <p>jkl</p>
+        <!-- MNO -->
       </div>
     </body>
     </html>
