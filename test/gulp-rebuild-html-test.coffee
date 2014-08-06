@@ -15,6 +15,7 @@ describe 'gulp-rebuild-html', ->
     <div class="foo">
       <h1 class="bar baz">abc<span>def</span>ghi</h1>
       <p>jkl</p>
+      <!-- mno -->
     </div>
   </body>
   </html>
@@ -24,6 +25,22 @@ describe 'gulp-rebuild-html', ->
     chunk = htmlClone.substr 0, 10
     htmlClone = htmlClone.substr 10
     chunk
+
+  describe 'null file', ->
+    it 'should pass through', (done) ->
+      stream = rebuild()
+      n = 0
+      stream.pipe es.through (file) ->
+        expect(file.path).toBe 'null.html'
+        expect(file.contents).toBe null
+        n++
+      , ->
+        expect(n).toBe 1
+        done()
+      stream.write new File
+        path: 'null.html'
+        contents: null
+      stream.end()
 
   describe 'in buffer mode', ->
 
@@ -38,6 +55,9 @@ describe 'gulp-rebuild-html', ->
         rebuildStream.write new File contents: new Buffer source
         rebuildStream.end()
 
+    it "should do nothing with null option", createRunner null, html, html
+    it "should do nothing without any option", createRunner {}, html, html
+
     it "should replace doctype", createRunner
       onprocessinginstruction: (name, value) ->
         '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">'
@@ -50,6 +70,7 @@ describe 'gulp-rebuild-html', ->
       <div class="foo">
         <h1 class="bar baz">abc<span>def</span>ghi</h1>
         <p>jkl</p>
+        <!-- mno -->
       </div>
     </body>
     </html>
@@ -70,6 +91,7 @@ describe 'gulp-rebuild-html', ->
       <div class="module-foo">
         <h1 class="bar baz">abc<span>def</span>ghi</h1>
         <p>jkl</p>
+        <!-- mno -->
       </div>
     </body>
     </html>
@@ -90,6 +112,7 @@ describe 'gulp-rebuild-html', ->
       <div class="foo">
         <h1 class="bar baz">abc<span>def</span>ghi</h1>
         <p>jkl</p>
+        <!-- mno -->
       <!-- /.foo --></div>
     </body>
     </html>
@@ -107,6 +130,25 @@ describe 'gulp-rebuild-html', ->
       <div class="foo">
         <h1 class="bar baz">ABC<span>DEF</span>GHI</h1>
         <p>JKL</p>
+        <!-- mno -->
+      </div>
+    </body>
+    </html>
+    """
+
+    it "should replace comment", createRunner
+      oncomment: (value) ->
+        "<!--#{value.toUpperCase()}-->"
+    , html
+    , """
+    <!DOCTYPE html>
+    <html>
+    <head></head>
+    <body>
+      <div class="foo">
+        <h1 class="bar baz">abc<span>def</span>ghi</h1>
+        <p>jkl</p>
+        <!-- MNO -->
       </div>
     </body>
     </html>
@@ -136,6 +178,9 @@ describe 'gulp-rebuild-html', ->
             contentStream.end()
         writeChunk()
 
+    it "should do nothing with null option", createRunner null, htmlChunks, html
+    it "should do nothing without any option", createRunner {}, htmlChunks, html
+
     it "should replace doctype", createRunner
       onprocessinginstruction: (name, value) ->
         '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">'
@@ -148,6 +193,7 @@ describe 'gulp-rebuild-html', ->
       <div class="foo">
         <h1 class="bar baz">abc<span>def</span>ghi</h1>
         <p>jkl</p>
+        <!-- mno -->
       </div>
     </body>
     </html>
@@ -168,6 +214,7 @@ describe 'gulp-rebuild-html', ->
       <div class="module-foo">
         <h1 class="bar baz">abc<span>def</span>ghi</h1>
         <p>jkl</p>
+        <!-- mno -->
       </div>
     </body>
     </html>
@@ -188,6 +235,7 @@ describe 'gulp-rebuild-html', ->
       <div class="foo">
         <h1 class="bar baz">abc<span>def</span>ghi</h1>
         <p>jkl</p>
+        <!-- mno -->
       <!-- /.foo --></div>
     </body>
     </html>
@@ -205,6 +253,25 @@ describe 'gulp-rebuild-html', ->
       <div class="foo">
         <h1 class="bar baz">ABC<span>DEF</span>GHI</h1>
         <p>JKL</p>
+        <!-- mno -->
+      </div>
+    </body>
+    </html>
+    """
+
+    it "should replace comment", createRunner
+      oncomment: (value) ->
+        "<!--#{value.toUpperCase()}-->"
+    , htmlChunks
+    , """
+    <!DOCTYPE html>
+    <html>
+    <head></head>
+    <body>
+      <div class="foo">
+        <h1 class="bar baz">abc<span>def</span>ghi</h1>
+        <p>jkl</p>
+        <!-- MNO -->
       </div>
     </body>
     </html>
