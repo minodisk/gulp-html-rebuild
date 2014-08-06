@@ -48,7 +48,7 @@ createAttrStr = (attrs) ->
 defOpts =
   onprocessinginstruction: (name, value) -> "<#{value}>"
   onopentag              : (name, attrs) -> "<#{name}#{createAttrStr attrs}>"
-  ontext                 : (text) -> text
+  ontext                 : (value) -> value
   onclosetag             : (name, attrs) -> "</#{name}>"
   oncomment              : (value) -> "<!--#{value}-->"
 
@@ -68,8 +68,8 @@ rebuild = (opts = {}) ->
           contents += opts.onprocessinginstruction(name, value) ? defOpts.onprocessinginstruction(name, value)
         onopentag: (name, attrs) ->
           contents += opts.onopentag(name, attrs) ? defOpts.onopentag(name, attrs)
-        ontext: (text) ->
-          contents += opts.ontext(text) ? defOpts.ontext(text)
+        ontext: (value) ->
+          contents += opts.ontext(value) ? defOpts.ontext(value)
         onclosetag: (name, attrs) ->
           return if !parser._options.xmlMode and name of voidElements
           contents += opts.onclosetag(name, attrs) ? defOpts.onclosetag(name, attrs)
@@ -86,8 +86,8 @@ rebuild = (opts = {}) ->
           stream.write opts.onprocessinginstruction(name, value) ? defOpts.onprocessinginstruction(name, value)
         onopentag: (name, attrs) ->
           stream.write opts.onopentag(name, attrs) ? defOpts.onopentag(name, attrs)
-        ontext: (text) ->
-          stream.write opts.ontext(text) ? defOpts.ontext(text)
+        ontext: (value) ->
+          stream.write opts.ontext(value) ? defOpts.ontext(value)
         onclosetag: (name, attrs) ->
           return if !parser._options.xmlMode and name of voidElements
           stream.write opts.onclosetag(name, attrs) ? defOpts.onclosetag(name, attrs)
