@@ -2,7 +2,7 @@
 
 > Run [minodisk/htmlparser2#stack-storage](https://github.com/minodisk/htmlparser2/tree/stack-storage) and rebuild html.
 
-*Automate rebuilding html to observe coding conventions, and so on.*
+*Parse and rebuild html to observe coding conventions, and so on.*
 
 ## Install
 
