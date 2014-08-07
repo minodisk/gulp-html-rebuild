@@ -1,11 +1,11 @@
 expect = require 'expect'
-rebuild = { createAttrStr } = require '../lib/gulp-rebuild-html'
+rebuild = { createAttrStr } = require '../lib/gulp-html-rebuild'
 { File } = require 'gulp-util'
 { PassThrough } = require 'stream'
 es = require 'event-stream'
 { clone } = require 'cloneextend'
 
-describe 'gulp-rebuild-html', ->
+describe 'gulp-html-rebuild', ->
 
   html = """
   <!DOCTYPE html>

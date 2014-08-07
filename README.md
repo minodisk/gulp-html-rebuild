@@ -1,4 +1,4 @@
-# [gulp](http://gulpjs.com)-rebuild-html [![NPM version][npm-image]][npm-url] [![Build status][travis-image]][travis-url] [![Coverage Status](https://img.shields.io/coveralls/minodisk/gulp-rebuild-html.svg)](https://coveralls.io/r/minodisk/gulp-rebuild-html)
+# [gulp](http://gulpjs.com)-html-rebuild [![NPM version][npm-image]][npm-url] [![Build status][travis-image]][travis-url] [![Coverage Status](https://img.shields.io/coveralls/minodisk/gulp-html-rebuild.svg)](https://coveralls.io/r/minodisk/gulp-html-rebuild)
 
 > Run [minodisk/htmlparser2#stack-storage](https://github.com/minodisk/htmlparser2/tree/stack-storage) and rebuild html.
 
@@ -7,14 +7,14 @@
 ## Install
 
 ```bash
-$ npm install --save-dev gulp-rebuild-html
+$ npm install --save-dev gulp-html-rebuild
 ```
 
 ## Usage
 
 ```js
 var gulp = require('gulp');
-var rebuild = require('gulp-rebuild-html');
+var rebuild = require('gulp-html-rebuild');
 
 gulp.task('default', function () {
   return gulp.src('index.html')
@@ -56,7 +56,7 @@ Helper for creating attribute.
 - Returns: `String` - A string of the attribute starting with whitespace.
 
 
-[travis-url]: http://travis-ci.org/minodisk/gulp-rebuild-html
-[travis-image]: https://secure.travis-ci.org/minodisk/gulp-rebuild-html.svg?branch=master
-[npm-url]: https://npmjs.org/package/gulp-rebuild-html
-[npm-image]: https://badge.fury.io/js/gulp-rebuild-html.svg
+[travis-url]: http://travis-ci.org/minodisk/gulp-html-rebuild
+[travis-image]: https://secure.travis-ci.org/minodisk/gulp-html-rebuild.svg?branch=master
+[npm-url]: https://npmjs.org/package/gulp-html-rebuild
+[npm-image]: https://badge.fury.io/js/gulp-html-rebuild.svg

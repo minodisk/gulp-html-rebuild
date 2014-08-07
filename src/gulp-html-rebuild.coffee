@@ -4,7 +4,7 @@ through = require 'through2'
 { PassThrough } = require 'stream'
 { cloneextend } = require 'cloneextend'
 
-PLUGIN_NAME = 'gulp-rebuild-html'
+PLUGIN_NAME = 'gulp-html-rebuild'
 
 voidElements =
   __proto__: null
