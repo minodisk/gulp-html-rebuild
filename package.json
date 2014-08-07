@@ -1,6 +1,6 @@
 {
   "name": "gulp-html-rebuild",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Rebuild html with htmlparser2.",
   "keywords": [
     "gulpplugin",
