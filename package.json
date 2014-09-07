@@ -1,12 +1,12 @@
 {
-  "name": "gulp-rebuild-html",
-  "version": "0.0.2",
+  "name": "gulp-html-rebuild",
+  "version": "0.0.4",
   "description": "Rebuild html with htmlparser2.",
   "keywords": [
     "gulpplugin",
     "htmlparser"
   ],
-  "main": "lib/gulp-rebuild-html.js",
+  "main": "lib/gulp-html-rebuild.js",
   "scripts": {
     "test": "mocha --compilers coffee:coffee-script/register",
     "istanbul": "coffee -c test && istanbul cover _mocha --report lcovonly -- -R spec && rm -rf ./coverage ./test/*.js",
@@ -14,14 +14,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/minodisk/gulp-rebuild-html.git"
+    "url": "https://github.com/minodisk/gulp-html-rebuild.git"
   },
   "author": "",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/minodisk/gulp-rebuild-html/issues"
+    "url": "https://github.com/minodisk/gulp-html-rebuild/issues"
   },
-  "homepage": "https://github.com/minodisk/gulp-rebuild-html",
+  "homepage": "https://github.com/minodisk/gulp-html-rebuild",
   "dependencies": {
     "cloneextend": "0.0.3",
     "gulp-util": "^3.0.0",

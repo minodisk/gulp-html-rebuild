@@ -1,11 +1,11 @@
 expect = require 'expect'
-rebuild = require '../lib/gulp-rebuild-html'
+rebuild = { createAttrStr } = require '../lib/gulp-html-rebuild'
 { File } = require 'gulp-util'
 { PassThrough } = require 'stream'
 es = require 'event-stream'
 { clone } = require 'cloneextend'
 
-describe 'gulp-rebuild-html', ->
+describe 'gulp-html-rebuild', ->
 
   html = """
   <!DOCTYPE html>
@@ -77,7 +77,7 @@ describe 'gulp-rebuild-html', ->
     """
 
     it "should rewrite the value of attributes", createRunner
-      onopentag: (name, attrs, createAttrStr) ->
+      onopentag: (name, attrs) ->
         return unless name is 'div' and
                       attrs.class?
         attrs.class = ("module-#{cls}" for cls in attrs.class.split /\s+/g).join ' '
@@ -98,7 +98,7 @@ describe 'gulp-rebuild-html', ->
     """
 
     it "should add class names as a comment to close tag", createRunner
-      onclosetag: (name, attrs, createAttrStr) ->
+      onclosetag: (name, attrs) ->
         return unless name is 'div' and
                       attrs.class?
         classStr = (".#{cls}" for cls in attrs.class.split /s+/g).join ''
@@ -200,7 +200,7 @@ describe 'gulp-rebuild-html', ->
     """
 
     it "should rewrite the value of attributes", createRunner
-      onopentag: (name, attrs, createAttrStr) ->
+      onopentag: (name, attrs) ->
         return unless name is 'div' and
                       attrs.class?
         attrs.class = ("module-#{cls}" for cls in attrs.class.split /\s+/g).join ' '
@@ -221,7 +221,7 @@ describe 'gulp-rebuild-html', ->
     """
 
     it "should add class names as a comment to close tag", createRunner
-      onclosetag: (name, attrs, createAttrStr) ->
+      onclosetag: (name, attrs) ->
         return unless name is 'div' and
                       attrs.class?
         classStr = (".#{cls}" for cls in attrs.class.split /s+/g).join ''

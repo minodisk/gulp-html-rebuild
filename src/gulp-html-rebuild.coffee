@@ -4,7 +4,7 @@ through = require 'through2'
 { PassThrough } = require 'stream'
 { cloneextend } = require 'cloneextend'
 
-PLUGIN_NAME = 'gulp-rebuild-html'
+PLUGIN_NAME = 'gulp-html-rebuild'
 
 voidElements =
   __proto__: null
@@ -47,12 +47,12 @@ createAttrStr = (attrs) ->
 
 defOpts =
   onprocessinginstruction: (name, value) -> "<#{value}>"
-  onopentag              : (name, attrs, createAttrStr) -> "<#{name}#{createAttrStr attrs}>"
-  ontext                 : (text) -> text
-  onclosetag             : (name, attrs, createAttrStr) -> "</#{name}>"
+  onopentag              : (name, attrs) -> "<#{name}#{createAttrStr attrs}>"
+  ontext                 : (value) -> value
+  onclosetag             : (name, attrs) -> "</#{name}>"
   oncomment              : (value) -> "<!--#{value}-->"
 
-module.exports = (opts = {}) ->
+rebuild = (opts = {}) ->
   opts = cloneextend defOpts, opts
 
   through.obj (file, enc, callback) ->
@@ -67,12 +67,12 @@ module.exports = (opts = {}) ->
         onprocessinginstruction: (name, value) ->
           contents += opts.onprocessinginstruction(name, value) ? defOpts.onprocessinginstruction(name, value)
         onopentag: (name, attrs) ->
-          contents += opts.onopentag(name, attrs, createAttrStr) ? defOpts.onopentag(name, attrs, createAttrStr)
-        ontext: (text) ->
-          contents += opts.ontext(text) ? defOpts.ontext(text)
+          contents += opts.onopentag(name, attrs) ? defOpts.onopentag(name, attrs)
+        ontext: (value) ->
+          contents += opts.ontext(value) ? defOpts.ontext(value)
         onclosetag: (name, attrs) ->
           return if !parser._options.xmlMode and name of voidElements
-          contents += opts.onclosetag(name, attrs, createAttrStr) ? defOpts.onclosetag(name, attrs, createAttrStr)
+          contents += opts.onclosetag(name, attrs) ? defOpts.onclosetag(name, attrs)
         oncomment: (value) ->
           contents += opts.oncomment(value) ? defOpts.oncomment(value)
       parser.write file.contents.toString 'utf8'
@@ -85,12 +85,12 @@ module.exports = (opts = {}) ->
         onprocessinginstruction: (name, value) ->
           stream.write opts.onprocessinginstruction(name, value) ? defOpts.onprocessinginstruction(name, value)
         onopentag: (name, attrs) ->
-          stream.write opts.onopentag(name, attrs, createAttrStr) ? defOpts.onopentag(name, attrs, createAttrStr)
-        ontext: (text) ->
-          stream.write opts.ontext(text) ? defOpts.ontext(text)
+          stream.write opts.onopentag(name, attrs) ? defOpts.onopentag(name, attrs)
+        ontext: (value) ->
+          stream.write opts.ontext(value) ? defOpts.ontext(value)
         onclosetag: (name, attrs) ->
           return if !parser._options.xmlMode and name of voidElements
-          stream.write opts.onclosetag(name, attrs, createAttrStr) ? defOpts.onclosetag(name, attrs, createAttrStr)
+          stream.write opts.onclosetag(name, attrs) ? defOpts.onclosetag(name, attrs)
         oncomment: (value) ->
           stream.write opts.oncomment(value) ? defOpts.oncomment(value)
         onend: ->
@@ -100,3 +100,7 @@ module.exports = (opts = {}) ->
 
     @push file
     callback()
+
+rebuild.createAttrStr = createAttrStr
+
+module.exports = rebuild
