@@ -1,4 +1,4 @@
-# [gulp](http://gulpjs.com)-rebuild-html [![NPM version][npm-image]][npm-url] [![Build status][travis-image]][travis-url] [![Coverage Status](https://img.shields.io/coveralls/minodisk/gulp-rebuild-html.svg)](https://coveralls.io/r/minodisk/gulp-rebuild-html)
+# [gulp](http://gulpjs.com)-rebuild-html [![NPM version][npm-image]][npm-url] [![Build status][travis-image]][travis-url] [![Coverage Status][coveralls-image]][coveralls-url]
 
 > Run [minodisk/htmlparser2#stack-storage](https://github.com/minodisk/htmlparser2/tree/stack-storage) and rebuild html.
 
@@ -75,7 +75,9 @@ Default: `function (name, value) { return "<!--" + value + "-->"; }`
 Replace comment with returned string.
 
 
-[travis-url]: http://travis-ci.org/minodisk/gulp-rebuild-html
-[travis-image]: https://secure.travis-ci.org/minodisk/gulp-rebuild-html.svg?branch=master
-[npm-url]: https://npmjs.org/package/gulp-rebuild-html
 [npm-image]: https://badge.fury.io/js/gulp-rebuild-html.svg
+[npm-url]: https://npmjs.org/package/gulp-rebuild-html
+[travis-image]: https://secure.travis-ci.org/minodisk/gulp-rebuild-html.svg?branch=master
+[travis-url]: http://travis-ci.org/minodisk/gulp-rebuild-html
+[coveralls-image]: https://img.shields.io/coveralls/minodisk/gulp-rebuild-html.svg
+[coveralls-url]: https://coveralls.io/r/minodisk/gulp-rebuild-html
