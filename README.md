@@ -56,9 +56,9 @@ Helper for creating attribute.
 - Returns: `String` - A string of the attribute starting with whitespace.
 
 
-[npm-image]: https://badge.fury.io/js/gulp-rebuild-html.svg
-[npm-url]: https://npmjs.org/package/gulp-rebuild-html
-[travis-image]: https://secure.travis-ci.org/minodisk/gulp-rebuild-html.svg?branch=master
-[travis-url]: http://travis-ci.org/minodisk/gulp-rebuild-html
-[coveralls-image]: https://img.shields.io/coveralls/minodisk/gulp-rebuild-html.svg
-[coveralls-url]: https://coveralls.io/r/minodisk/gulp-rebuild-html
+[npm-image]: https://badge.fury.io/js/gulp-html-rebuild.svg
+[npm-url]: https://npmjs.org/package/gulp-html-rebuild
+[travis-image]: https://secure.travis-ci.org/minodisk/gulp-html-rebuild.svg?branch=master
+[travis-url]: http://travis-ci.org/minodisk/gulp-html-rebuild
+[coveralls-image]: https://img.shields.io/coveralls/minodisk/gulp-html-rebuild.svg
+[coveralls-url]: https://coveralls.io/r/minodisk/gulp-html-rebuild
